@@ -1,36 +1,59 @@
 #!/bin/bash
 
-#SBATCH --chdir /home/ardoin/
+#SBATCH --chdir /home/mlyniec/Dial-a-Ride
 
 #SBATCH --nodes 1
 
+#SBATCH --ntasks 1
+
 #SBATCH --cpus-per-task 1
+
+#SBATCH --mem 4096
+
+#SBATCH --time 12:00:00
+
+#SBATCH --account cs503
+
+#SBATCH --reservation courses
 
 #SBATCH --gres=gpu:1
 
-#SBATCH --ntasks 1
-
-#SBATCH --account=vita
-
-#SBATCH --mem 30G
-
-#SBATCH --time 20:00:00
-
 echo "fidis $HOSTNAME"
+echo STARTING AT `date`
+echo $PWD
 
-python3.7 dialRL/run_supervised_rl_clearML.py \
+python dialRL/run_supervised_rl_clearML.py \
 --total_timesteps 10000 \
 --monitor_freq 1000 \
 --example_freq 1000000 \
 --epochs 10000 \
 --alias TestSupervised \
---model Trans1 \
---layers 64 64 \
---eval_episodes 5 \
---verbose 1 \
---nb_target 2 \
---image_size 4 \
---nb_drivers 1 \
+--model Trans18 \
+--layers 256 256 \
+--eval_episodes 1 \
+--verbose 0 \
+--nb_target 16 \
+--image_size 10 \
+--nb_drivers 2 \
 --dataset '' \
---reward_function HybridProportionalReward \
---batch_size 256
+--reward_function ProportionalEndDistance \
+--data_size 10000 \
+--batch_size 2 \
+--dropout 0 \
+--lr 0.0001 \
+--optimizer Adam \
+--typ 33 \
+--embed_size 512 \
+--checkpoint_dir '' \
+--vocab_size 16 \
+--supervision rf \
+--tag 'Local train' \
+--heads 8 \
+--forward_expension 4 \
+--num_layers 6 \
+--clearml 1 \
+--balanced_dataset 0 \
+--rl 0 \
+--augmentation 0
+
+echo FINISHED at `date`

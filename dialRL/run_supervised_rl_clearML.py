@@ -48,7 +48,7 @@ def get_args(args):
     parser.add_argument('--nb_drivers', default=1, type=int)
     parser.add_argument('--env', default='DarEnv', type=str)
     parser.add_argument('--dataset', default='', type=str)
-    parser.add_argument('--rootdir', default='/home/tibo/Documents/Prog/EPFL/own/', type=str)
+    parser.add_argument('--rootdir', default='/home/mlyniec/test_dial', type=str)
     parser.add_argument('--reward_function', type=str)
     parser.add_argument('--trl', default=False, type=bool)
     parser.add_argument('--clearml', default=False, type=bool)

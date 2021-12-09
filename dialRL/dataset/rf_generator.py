@@ -1,7 +1,7 @@
 from dialRL.strategies import CompleteRoute
 from dialRL.dataset import DataFileGenerator
 from dialRL.environments import DarSeqEnv
-from dialRL.strategies.external.darp_rf.run_rf_algo import run_rf_algo
+from darp_rf import run_rf_algo
 from dialRL.utils import get_device, objdict, SupervisionDataset
 from dialRL.utils.reward_functions import  *
 
@@ -173,7 +173,8 @@ class RFGenerator():
                 sys.stdout = open('test_file.out', 'w')
             try :
                 solution_file, perf, l_bound = run_rf_algo('0')
-            except:
+            except BaseException as err:
+                print(err)
                 print('ERROR in RUN RF ALGO. PASSING THROUGH')
             if not self.verbose :
                 sys.stdout = sys.__stdout__
